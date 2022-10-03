@@ -7,6 +7,7 @@ import com.ubicaplus.payload.SoapRequest;
 import com.ubicaplus.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,18 +15,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/book")
-public class BookRestController {
+public class RestController {
 
     private BookService bookService;
 
-    private Logger logger = LoggerFactory.getLogger(BookRestController.class);
+    private Logger logger = LoggerFactory.getLogger(RestController.class);
 
 
     //Note: The @Named("bookService") is not required in this example (as there only instance of BookService around)
     @Inject
-    public BookRestController(@Named("bookService") BookService bookService) {
+    public RestController(@Named("bookService") BookService bookService) {
         this.bookService = bookService;
     }
 

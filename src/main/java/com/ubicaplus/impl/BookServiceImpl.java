@@ -8,12 +8,17 @@ import com.ubicaplus.service.BookService;
 import com.ubicaplus.service.SoapClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Configuration
+@PropertySource("classpath:application.properties")
 @Named("bookService")
 public class BookServiceImpl implements BookService {
 
@@ -22,6 +27,12 @@ public class BookServiceImpl implements BookService {
     // In-memory list
     private List<Book> books = new ArrayList<>();
     private SoapClient soapClient = new SoapClient();
+
+    @Value(value = "${auth.username}")
+    private String userName;
+
+    @Value(value = "${auth.password}")
+    private String password;
 
     public BookServiceImpl() {
         init();
@@ -60,7 +71,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public CIFIN getData(SoapRequest request) {
-        SoapResponse response = soapClient.call(request);
+        SoapResponse response = soapClient.call(request, userName, password);
         return response.getCIFIN();
     }
 }

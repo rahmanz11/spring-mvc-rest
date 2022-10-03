@@ -35,7 +35,7 @@ public abstract class BaseWebApplicationContextTests {
 
     protected MockHttpServletRequest request;
     protected MockHttpServletResponse response;
-    protected BookRestController controller;
+    protected RestController controller;
     protected BookService bookService;
 
 
@@ -56,7 +56,7 @@ public abstract class BaseWebApplicationContextTests {
 
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
-        controller = (BookRestController) applicationContext.getBean("bookRestController");
+        controller = (RestController) applicationContext.getBean("restController");
         bookService = (BookService) applicationContext.getBean("bookService");
         MockServletContext servletContext = new MockServletContext("src/main/webapp", new FileSystemResourceLoader());
 

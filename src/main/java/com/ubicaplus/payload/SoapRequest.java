@@ -3,8 +3,6 @@ package com.ubicaplus.payload;
 import java.io.Serializable;
 
 public class SoapRequest implements Serializable {
-    private String userName;
-    private String password;
     private String codigoInformacion;
     private String tipoIdentificacion;
     private String motivoConsulta;
@@ -12,22 +10,6 @@ public class SoapRequest implements Serializable {
     private String primerApellido;
 
     public SoapRequest() {}
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getCodigoInformacion() {
         return codigoInformacion;

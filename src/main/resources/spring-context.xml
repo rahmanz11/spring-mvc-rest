@@ -6,7 +6,7 @@
 
 	<bean id="logInBound" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 	<bean id="logOutBound" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
-	<jaxws:client id="ubicaClient" serviceClass="com.ubicaplus.soap.com.webservice.ubicaplus.UbicaPlusWS"
+	<jaxws:client id="ubicaClient" serviceClass="com.webservice.ubicaplus.UbicaPlusWS"
 		address="https://miportafoliouat.transunion.co/ws/UbicaPlusWebService/services/UbicaPlus?wsdl">
 		<jaxws:outInterceptors>
 			<ref bean="logOutBound" />
@@ -21,7 +21,7 @@
                 <entry key="signaturePropFile" value="./client-crypto.properties"/>
                 <entry key="decryptionPropFile" value="./client-crypto.properties"/>
                 <entry key="signatureKeyIdentifier" value="IssuerSerial"/>
-                <entry key="passwordCallbackClass" value="org.union.trans.ubica.plus.soap.client.ClientPasswordCallback"/>
+                <entry key="passwordCallbackClass" value="com.ubicaplus.service.ClientPasswordCallback"/>
                 <entry key="signatureParts"
                        value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
             </map>

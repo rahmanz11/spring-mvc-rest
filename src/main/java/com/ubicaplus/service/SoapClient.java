@@ -19,16 +19,17 @@ import java.util.Map;
 @Component
 public class SoapClient {
 
-	public SoapResponse call(SoapRequest request) {
+	public SoapResponse call(SoapRequest request, String userName, String password) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
         com.webservice.ubicaplus.UbicaPlusWS ubicaws = (com.webservice.ubicaplus.UbicaPlusWS) context.getBean("ubicaClient");
-
-        if (request.getUserName() != null && request.getUserName().trim() != ""
-		&& request.getPassword() != null && request.getPassword().trim() != "") {
+		System.out.println(String.format("########################################## userName incoming: %s", userName));
+		System.out.println(String.format("########################################## password incoming: %s", password));
+        if (userName != null && userName.trim() != ""
+		&& password != null && password.trim() != "") {
 			Map<String, Object> reqContext = ((BindingProvider)
 					ubicaws).getRequestContext();
-			reqContext.put(BindingProvider.USERNAME_PROPERTY, request.getUserName());
-			reqContext.put(BindingProvider.PASSWORD_PROPERTY, request.getPassword());
+			reqContext.put(BindingProvider.USERNAME_PROPERTY, userName);
+			reqContext.put(BindingProvider.PASSWORD_PROPERTY, password);
 		}
 		org.xmlsoap.schemas.soap.encoding.String response;
 		try {
