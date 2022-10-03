@@ -1,52 +1,32 @@
 package com.ubicaplus.controller;
 
-import com.ubicaplus.domain.Book;
-import com.ubicaplus.domain.ObjectWithId;
-import com.ubicaplus.payload.CIFIN;
-import com.ubicaplus.payload.SoapRequest;
-import com.ubicaplus.service.BookService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import com.ubicaplus.payload.*;
+import com.ubicaplus.service.RestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/book")
+@RequestMapping("/")
 public class RestController {
 
-    private BookService bookService;
+    @Autowired
+    private RestService restService;
 
-    private Logger logger = LoggerFactory.getLogger(RestController.class);
-
-
-    //Note: The @Named("bookService") is not required in this example (as there only instance of BookService around)
-    @Inject
-    public RestController(@Named("bookService") BookService bookService) {
-        this.bookService = bookService;
-    }
-
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public Book getBook(@PathVariable("id") Long id) {
-        logger.debug("Provider has received request to get person with id: " + id);
-        return bookService.getBook(id);
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ObjectWithId addBook(@RequestBody Book book) {
-        return new ObjectWithId(bookService.addBook(book));
-    }
-
-    @RequestMapping(value = "/get-data", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public CIFIN submit(@RequestBody SoapRequest request) {
-        return bookService.getData(request);
+    @RequestMapping(value = "call-provider-service", method = RequestMethod.POST)
+    public ResponseEntity<?> submit(@RequestBody SoapRequest request) {
+        try {
+            RestResponse response = restService.getData(request);
+            return new ResponseEntity<>(response.getCifin(), HttpStatus.OK);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(e.getError(), HttpStatus.BAD_REQUEST);
+        } catch (InternalServerException e) {
+            String message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (UnauthorizedServerException e) {
+            String message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+        }
     }
 }

@@ -21,9 +21,9 @@ public class SoapClient {
 
 	public SoapResponse call(SoapRequest request, String userName, String password) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+
         com.webservice.ubicaplus.UbicaPlusWS ubicaws = (com.webservice.ubicaplus.UbicaPlusWS) context.getBean("ubicaClient");
-		System.out.println(String.format("########################################## userName incoming: %s", userName));
-		System.out.println(String.format("########################################## password incoming: %s", password));
+
         if (userName != null && userName.trim() != ""
 		&& password != null && password.trim() != "") {
 			Map<String, Object> reqContext = ((BindingProvider)
@@ -31,28 +31,27 @@ public class SoapClient {
 			reqContext.put(BindingProvider.USERNAME_PROPERTY, userName);
 			reqContext.put(BindingProvider.PASSWORD_PROPERTY, password);
 		}
-		org.xmlsoap.schemas.soap.encoding.String response;
-		try {
-			response = ubicaws.consultaUbicaPlus(this.prepareSoapRequest(request));
-			String responseString = response.getValue();
-			System.out.println("Response String: " + responseString);
-			boolean error = false;
-			if (responseString.contains("CifinError")) {
-				error = true;
-			}
 
-			return this.prepareSoapResponse(responseString, error);
+		org.xmlsoap.schemas.soap.encoding.String soapResponse;
+        SoapResponse response = new SoapResponse();
+		try {
+			soapResponse = ubicaws.consultaUbicaPlus(this.prepareSoapRequest(request));
+			String responseString = soapResponse.getValue();
+			System.out.println("Response String: " + responseString);
+			this.prepareSoapResponse(responseString, response);
 
 		} catch (RuntimeException t) {
 			t.printStackTrace();
 			if (t.getCause().getMessage().contains("401: Unauthorized")) {
 				System.err.println("Unauthorized Access");
-				return new SoapResponse(true);
+				response.setUnauthorized(true);
 			} else {
 				System.err.println("SOAP Exception");
-				return new SoapResponse(t.getMessage());
+				response.setErrorMessage(t.getMessage());
 			}
 		}
+
+		return response;
 	}
 
 	private ParametrosUbicaPlusDTO prepareSoapRequest(SoapRequest request) {
@@ -91,10 +90,10 @@ public class SoapClient {
 		return dto;
 	}
 
-	private SoapResponse prepareSoapResponse(String responseString, boolean error) {
+	private void prepareSoapResponse(String responseString, SoapResponse response) {
 		JAXBContext jaxbContext;
 		try {
-			if (!error) {
+			if (!responseString.contains("CifinError")) {
 				jaxbContext = JAXBContext.newInstance(CIFIN.class);
 			} else {
 				jaxbContext = JAXBContext.newInstance(CifinError.class);
@@ -102,18 +101,16 @@ public class SoapClient {
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-			if (!error) {
+			if (!responseString.contains("CifinError")) {
 				CIFIN cifin = (CIFIN) jaxbUnmarshaller.unmarshal(new StringReader(responseString));
-				System.out.println(cifin);
-				return new SoapResponse(cifin);
+				response.setCIFIN(cifin);
 			} else {
 				CifinError cifinError = (CifinError) jaxbUnmarshaller.unmarshal(new StringReader(responseString));
-				System.out.println(cifinError);
-				return new SoapResponse(cifinError);
+				response.setCifinError(cifinError);
 			}
 		} catch (JAXBException e) {
 			System.err.println("Response conversion exception");
-			return new SoapResponse(e.getMessage());
+			response.setErrorMessage(e.getMessage());
 		}
 	}
 

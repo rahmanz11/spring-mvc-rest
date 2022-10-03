@@ -43,12 +43,12 @@ public class SoapClientTest extends BaseWebApplicationContextTests {
     @Test
     public void test401UnauthorizedWithNullCredentials() {
         SoapResponse response = soapClient.call(request, null, null);
-        assertTrue(response.is401() == true);
+        assertTrue(response.isUnauthorized() == true);
     }
 
     @Test
     public void test401UnauthorizedWithInvalidCredentials() {
         SoapResponse response = soapClient.call(request, "dummy", "dummy");
-        assertTrue(response.is401() == true);
+        assertTrue(response.isUnauthorized() == true);
     }
 }

@@ -1,11 +1,20 @@
 package com.ubicaplus.payload;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @XmlRootElement(name = "Error")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Error implements Serializable {
@@ -29,75 +38,4 @@ public class Error implements Serializable {
 
     @XmlElement(name = "MensajeError")
     private String MensajeError;
-
-    public Error() {}
-
-    public String getCodigoInformacion() {
-        return CodigoInformacion;
-    }
-
-    public void setCodigoInformacion(String codigoInformacion) {
-        CodigoInformacion = codigoInformacion;
-    }
-
-    public String getMotivoConsulta() {
-        return MotivoConsulta;
-    }
-
-    public void setMotivoConsulta(String motivoConsulta) {
-        MotivoConsulta = motivoConsulta;
-    }
-
-    public String getNumeroIdentificacion() {
-        return NumeroIdentificacion;
-    }
-
-    public void setNumeroIdentificacion(String numeroIdentificacion) {
-        NumeroIdentificacion = numeroIdentificacion;
-    }
-
-    public String getTipoIdentificacion() {
-        return TipoIdentificacion;
-    }
-
-    public void setTipoIdentificacion(String tipoIdentificacion) {
-        TipoIdentificacion = tipoIdentificacion;
-    }
-
-    public String getOperacion() {
-        return Operacion;
-    }
-
-    public void setOperacion(String operacion) {
-        Operacion = operacion;
-    }
-
-    public String getCodigoError() {
-        return CodigoError;
-    }
-
-    public void setCodigoError(String codigoError) {
-        CodigoError = codigoError;
-    }
-
-    public String getMensajeError() {
-        return MensajeError;
-    }
-
-    public void setMensajeError(String mensajeError) {
-        MensajeError = mensajeError;
-    }
-
-    @Override
-    public String toString() {
-        return "Error{" +
-                "CodigoInformacion='" + CodigoInformacion + '\'' +
-                ", MotivoConsulta='" + MotivoConsulta + '\'' +
-                ", NumeroIdentificacion='" + NumeroIdentificacion + '\'' +
-                ", TipoIdentificacion='" + TipoIdentificacion + '\'' +
-                ", Operacion='" + Operacion + '\'' +
-                ", CodigoError='" + CodigoError + '\'' +
-                ", MensajeError='" + MensajeError + '\'' +
-                '}';
-    }
 }

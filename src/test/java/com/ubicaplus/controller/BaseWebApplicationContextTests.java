@@ -1,6 +1,6 @@
 package com.ubicaplus.controller;
 
-import com.ubicaplus.service.BookService;
+import com.ubicaplus.service.RestService;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
@@ -22,12 +22,10 @@ import javax.annotation.Resource;
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/applicationContext.xml"})
 public abstract class BaseWebApplicationContextTests {
 
-
     // this servlet is going to be instantiated by ourselves
     // so that we can test the servlet behaviour w/o actual web container
     // deployment
     protected DispatcherServlet servlet;
-
 
     // we need to get at the context already loaded via the @ContextConfiguration annotation.
     @Resource
@@ -36,7 +34,7 @@ public abstract class BaseWebApplicationContextTests {
     protected MockHttpServletRequest request;
     protected MockHttpServletResponse response;
     protected RestController controller;
-    protected BookService bookService;
+    protected RestService restService;
 
 
     @Before
@@ -57,7 +55,7 @@ public abstract class BaseWebApplicationContextTests {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         controller = (RestController) applicationContext.getBean("restController");
-        bookService = (BookService) applicationContext.getBean("bookService");
+        restService = (RestService) applicationContext.getBean("restService");
         MockServletContext servletContext = new MockServletContext("src/main/webapp", new FileSystemResourceLoader());
 
         servlet.init(new MockServletConfig(servletContext));

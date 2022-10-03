@@ -13,55 +13,13 @@
 
     <context:annotation-config/>
 
-<!--    <bean id="logInBound" class="org.apache.cxf.interceptor.LoggingInInterceptor" />-->
-<!--    <bean id="logOutBound" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />-->
-<!--    <jaxws:client id="ubicaClient" serviceClass="com.webservice.ubicaplus.UbicaPlusWS"-->
-<!--                  address="https://miportafoliouat.transunion.co/ws/UbicaPlusWebService/services/UbicaPlus?wsdl">-->
-<!--        <jaxws:outInterceptors>-->
-<!--            <ref bean="logOutBound" />-->
-<!--            <ref bean="outbound-security" />-->
-<!--        </jaxws:outInterceptors>-->
-<!--    </jaxws:client>-->
-<!--    <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor" id="outbound-security">-->
-<!--        <constructor-arg>-->
-<!--            <map>-->
-<!--                <entry key="action" value="Signature Timestamp"/>-->
-<!--                <entry key="user" value="equidadtes"/>-->
-<!--                <entry key="signaturePropFile" value="./client-crypto.properties"/>-->
-<!--                <entry key="decryptionPropFile" value="./client-crypto.properties"/>-->
-<!--                <entry key="signatureKeyIdentifier" value="IssuerSerial"/>-->
-<!--                <entry key="passwordCallbackClass" value="org.union.trans.ubica.plus.soap.client.ClientPasswordCallback"/>-->
-<!--                <entry key="signatureParts"-->
-<!--                       value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>-->
-<!--            </map>-->
-<!--        </constructor-arg>-->
-<!--    </bean>-->
-
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
-        <mvc:message-converters register-defaults="false">   <!-- defaults for spring mvc 4 are jaxb and jackson2 -->
+        <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-                <property name="marshaller" ref="xstreamMarshaller"/>
-                <property name="unmarshaller" ref="xstreamMarshaller"/>
-            </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
     <context:component-scan base-package="com.ubicaplus"/>
-
-
-    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-        <property name="autodetectAnnotations" value="true"/>
-        <property name="aliases">
-            <props>
-                <prop key="books">com.ubicaplus.domain.BookList</prop>
-                <prop key="book">com.ubicaplus.domain.Book</prop>
-                <prop key="object">com.ubicaplus.domain.ObjectWithId</prop>
-            </props>
-        </property>
-    </bean>
-
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="true"/>
