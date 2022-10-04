@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ubicaplus.model">
+    <class name="UbicaDetail" table="UBICA_DETAIL">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">UBICA_DETAIL_ID_SEQ</param>
+            </generator>
+        </id>
+        <property name="response" column="RESPONSE" />
+        <property name="status" column="STATUS" />
+        <property name="requestDateTime" column="REQUEST_DATE_TIME" />
+        <property name="responseDateTime" column="RESPONSE_DATE_TIME"/>
+    </class>
+</hibernate-mapping>

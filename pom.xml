@@ -9,11 +9,26 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.framework.version>4.3.20.RELEASE</spring.framework.version>
         <jackson.version>2.9.9</jackson.version>
         <cxf.version>3.2.4</cxf.version>
         <lombok.version>1.18.24</lombok.version>
         <model-mapper.version>3.1.0</model-mapper.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <jstl.version>1.1.2</jstl.version>
+        <javax.servlet.version>3.1.0</javax.servlet.version>
+        <taglibs.version>1.1.2</taglibs.version>
+        <javax.inject.version>1</javax.inject.version>
+        <ojdbc6.version>11.2.0.4</ojdbc6.version>
+        <hibernate.version>4.3.6.Final</hibernate.version>
+        <javax.validation-api.version>1.1.0.Final</javax.validation-api.version>
+        <hibernate-validator.version>5.3.5.Final</hibernate-validator.version>
+        <commons-dbcp2.version>2.9.0</commons-dbcp2.version>
     </properties>
 
     <repositories>
@@ -52,103 +67,71 @@
             <version>${spring.framework.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${javax.servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.25</version>
+            <version>${slf4j.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <version>${taglibs.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.18</version>
-        </dependency>
-
-        <dependency>
-            <groupId>xpp3</groupId>
-            <artifactId>xpp3_min</artifactId>
-            <version>1.1.4c</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.kxml</groupId>
-            <artifactId>kxml2</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${javax.inject.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
+            <version>${javax.annotation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -161,10 +144,36 @@
             <artifactId>modelmapper</artifactId>
             <version>${model-mapper.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>${ojdbc6.version}</version>
+        </dependency>
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!-- jsr303 validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>${commons-dbcp2.version}</version>
+        </dependency>
     </dependencies>
+
     <build>
-
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -174,32 +183,30 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-
             </plugin>
-
-          <plugin>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-codegen-plugin</artifactId>
-            <version>${cxf.version}</version>
-            <executions>
-              <execution>
-                <id>generate-sources</id>
-                <phase>generate-sources</phase>
-                <configuration>
-                  <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
-                  <wsdlOptions>
-                    <wsdlOption>
-                      <wsdl>${project.basedir}/src/main/resources/wsdl/UbicaPlus.wsdl</wsdl>
-                      <serviceName>UbicaPlusWSService</serviceName>
-                    </wsdlOption>
-                  </wsdlOptions>
-                </configuration>
-                <goals>
-                  <goal>wsdl2java</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <executions>
+                  <execution>
+                    <id>generate-sources</id>
+                    <phase>generate-sources</phase>
+                    <configuration>
+                      <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
+                      <wsdlOptions>
+                        <wsdlOption>
+                          <wsdl>${project.basedir}/src/main/resources/wsdl/UbicaPlus.wsdl</wsdl>
+                          <serviceName>UbicaPlusWSService</serviceName>
+                        </wsdlOption>
+                      </wsdlOptions>
+                    </configuration>
+                    <goals>
+                      <goal>wsdl2java</goal>
+                    </goals>
+                  </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <finalName>ubicaplus</finalName>

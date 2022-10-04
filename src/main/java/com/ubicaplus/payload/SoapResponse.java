@@ -16,4 +16,5 @@ public class SoapResponse implements Serializable {
     private CifinError CifinError;
     private String errorMessage;
     private boolean unauthorized;
+    private String soapResponseValue;
 }
