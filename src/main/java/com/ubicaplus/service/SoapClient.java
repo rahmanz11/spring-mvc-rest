@@ -4,6 +4,7 @@ import com.ubicaplus.payload.CIFIN;
 import com.ubicaplus.payload.CifinError;
 import com.ubicaplus.payload.SoapRequest;
 import com.ubicaplus.payload.SoapResponse;
+import com.ubicaplus.utility.Utility;
 import com.webservice.ubicaplus.dto.ParametrosUbicaPlusDTO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -36,18 +37,23 @@ public class SoapClient {
         SoapResponse response = new SoapResponse();
 		try {
 			soapResponse = ubicaws.consultaUbicaPlus(this.prepareSoapRequest(request));
+
 			String responseString = soapResponse.getValue();
 			System.out.println("Response String: " + responseString);
+
+			response.setSoapResponseValue(responseString);
+
 			this.prepareSoapResponse(responseString, response);
 
-		} catch (RuntimeException t) {
-			t.printStackTrace();
-			if (t.getCause().getMessage().contains("401: Unauthorized")) {
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			if (e.getCause().getMessage().contains("401: Unauthorized")) {
 				System.err.println("Unauthorized Access");
 				response.setUnauthorized(true);
 			} else {
-				System.err.println("SOAP Exception");
-				response.setErrorMessage(t.getMessage());
+				String exception = Utility.getStringFromException(e);
+				System.err.println(String.format("SOAP Exception: %s", exception));
+				response.setErrorMessage(exception);
 			}
 		}
 
@@ -109,8 +115,9 @@ public class SoapClient {
 				response.setCifinError(cifinError);
 			}
 		} catch (JAXBException e) {
-			System.err.println("Response conversion exception");
-			response.setErrorMessage(e.getMessage());
+			String exception = Utility.getStringFromException(e);
+			System.err.println(String.format("Response conversion: %s", exception));
+			response.setErrorMessage(exception);
 		}
 	}
 

@@ -38,5 +38,21 @@
         <constructor-arg value="json"/>
     </bean>
 
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521/ORCL"/>
+        <property name="username" value="USER"/>
+        <property name="password" value="PASS"/>
+    </bean>
 
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+
+    <bean id="ubicaDao" class="com.ubicaplus.dao.UbicaDao">
+        <constructor-arg>
+            <ref bean="sessionFactory" />
+        </constructor-arg>
+    </bean>
 </beans>

@@ -20,13 +20,13 @@ public class RestController {
             RestResponse response = restService.getData(request);
             return new ResponseEntity<>(response.getCifin(), HttpStatus.OK);
         } catch (BadRequestException e) {
-            return new ResponseEntity<>(e.getError(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<CifinError>(e.getError(), HttpStatus.BAD_REQUEST);
         } catch (InternalServerException e) {
-            String message = e.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            Message message = new Message(e.getMessage());
+            return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (UnauthorizedServerException e) {
-            String message = e.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
+            Message message = new Message(e.getMessage());
+            return new ResponseEntity<Message>(message, HttpStatus.UNAUTHORIZED);
         }
     }
 }
