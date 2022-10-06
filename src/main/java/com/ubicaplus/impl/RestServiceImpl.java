@@ -24,12 +24,6 @@ public class RestServiceImpl implements RestService {
 
     private SoapClient soapClient = new SoapClient();
 
-    @Value(value = "${auth.username}")
-    private String userName;
-
-    @Value(value = "${auth.password}")
-    private String password;
-
     @Autowired
     private ModelMapper modelMapper;
 
@@ -44,7 +38,7 @@ public class RestServiceImpl implements RestService {
         UbicaDetail detail = new UbicaDetail();
         detail.setRequestDateTime(new Date());
 
-        SoapResponse soapResponse = soapClient.call(request, userName, password);
+        SoapResponse soapResponse = soapClient.call(request);
         detail.setResponseDateTime(new Date());
 
         if (soapResponse.getErrorMessage() != null && soapResponse.getErrorMessage() != "") {
