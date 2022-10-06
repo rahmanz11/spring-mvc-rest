@@ -13,8 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.inject.Named;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Date;
 
 @Configuration
@@ -24,42 +23,37 @@ public class RestServiceImpl implements RestService {
 
     private SoapClient soapClient = new SoapClient();
 
-    @Value(value = "${auth.username}")
-    private String userName;
-
-    @Value(value = "${auth.password}")
-    private String password;
-
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private UbicaDao dao;
 
+    @Value("${userlist.file.location}")
+    String userListFileLocation;
+
     public RestServiceImpl() {
     }
 
     @Override
-    public RestResponse getData(SoapRequest request) throws InternalServerException, UnauthorizedServerException, BadRequestException {
+    public RestResponse getData(SoapRequest request) throws InternalServerException, UnauthorizedServerException,
+            BadRequestException, InvalidUserException {
+
+        boolean userIsValid = false;
+        try {
+            userIsValid = this.isValidUser(request.getReq_usuario(), request.getReq_password());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!userIsValid) {
+            throw new InvalidUserException("No Valid User");
+        }
+
         UbicaDetail detail = new UbicaDetail();
         detail.setRequestDateTime(new Date());
 
-        SoapResponse soapResponse = soapClient.call(request, userName, password);
+        SoapResponse soapResponse = soapClient.call(request);
         detail.setResponseDateTime(new Date());
-
-        if (soapResponse.getErrorMessage() != null && soapResponse.getErrorMessage() != "") {
-            detail.setResponse(soapResponse.getErrorMessage());
-            detail.setStatus(500L);
-        } else if (soapResponse.isUnauthorized()) {
-            detail.setResponse("Access Unauthorized");
-            detail.setStatus(401L);
-        } else if (soapResponse.getCifinError() != null) {
-            detail.setResponse(soapResponse.getSoapResponseValue());
-            detail.setStatus(400L);
-        } else {
-            detail.setResponse(soapResponse.getSoapResponseValue());
-            detail.setStatus(200L);
-        }
 
         try {
             dao.save(detail);
@@ -82,6 +76,23 @@ public class RestServiceImpl implements RestService {
             throw new BadRequestException(response.getCifinError());
         }
         return response;
+    }
+
+    private boolean isValidUser(String req_usuario, String req_password) throws IOException {
+        FileInputStream fis = new FileInputStream(userListFileLocation);
+        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+        String line;
+        while ((line = in.readLine()) != null) {
+            String[] values = line.split(":");
+            if (req_usuario.equalsIgnoreCase(values[0])
+            && req_password.equalsIgnoreCase(values[1])) {
+                in.close();
+                return true;
+            }
+        }
+        in.close();
+
+        return false;
     }
 }
 

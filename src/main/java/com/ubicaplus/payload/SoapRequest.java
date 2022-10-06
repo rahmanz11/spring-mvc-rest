@@ -10,9 +10,11 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class SoapRequest implements Serializable {
+    private String req_usuario;
+    private String req_password;
     private String codigoInformacion;
     private String tipoIdentificacion;
-    private String motivoConsulta;
     private String numeroIdentificacion;
     private String primerApellido;
+    private String motivoConsulta;
 }

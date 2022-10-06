@@ -12,5 +12,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message implements Serializable {
-    private String exceptionMessage;
+    private String ErrorText;
 }

@@ -27,6 +27,9 @@ public class RestController {
         } catch (UnauthorizedServerException e) {
             Message message = new Message(e.getMessage());
             return new ResponseEntity<Message>(message, HttpStatus.UNAUTHORIZED);
+        } catch (InvalidUserException e) {
+            Message message = new Message(e.getMessage());
+            return new ResponseEntity<Message>(message, HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 }

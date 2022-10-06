@@ -22,33 +22,28 @@ public class SoapClientTest extends BaseWebApplicationContextTests {
         request.setNumeroIdentificacion("262744");
         request.setPrimerApellido("SEPULVEDA");
         request.setTipoIdentificacion("1");
+        request.setReq_usuario("307883");
+        request.setReq_password("Equidad2208*");
     }
 
     @Test
     public void testSoapResponse() {
-        SoapResponse response = soapClient.call(request, "307883", "Equidad2208*");
-        assertTrue(response.getCIFIN().getTercero().getIdentificadorLinea().equals("97324"));
-        assertTrue(response.getCIFIN().getTercero().getCodigoDepartamento().equals("25"));
-        assertTrue(response.getCIFIN().getTercero().getApellido1().equals("SEPULVEDA"));
-        assertTrue(response.getCIFIN().getTercero().getUbicaPlusCifin().getGeneroTercero().equals("HOMBRE"));
+        SoapResponse response = soapClient.call(request);
+        assertTrue(response.getCIFIN().getTercero() != null);
     }
 
     @Test
     public void testSoapResponseErrorCode4() {
         request.setNumeroIdentificacion(null);
-        SoapResponse response = soapClient.call(request, "307883", "Equidad2208*");
+        SoapResponse response = soapClient.call(request);
         assertTrue(response.getCifinError().getError().getCodigoError().trim().equals("4"));
     }
 
     @Test
-    public void test401UnauthorizedWithNullCredentials() {
-        SoapResponse response = soapClient.call(request, null, null);
-        assertTrue(response.isUnauthorized() == true);
-    }
-
-    @Test
     public void test401UnauthorizedWithInvalidCredentials() {
-        SoapResponse response = soapClient.call(request, "dummy", "dummy");
+        request.setReq_usuario("dummy");
+        request.setReq_password("dummy");
+        SoapResponse response = soapClient.call(request);
         assertTrue(response.isUnauthorized() == true);
     }
 }
