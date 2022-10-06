@@ -1,11 +1,9 @@
 package com.ubicaplus.service;
 
-import com.ubicaplus.payload.CIFIN;
-import com.ubicaplus.payload.CifinError;
-import com.ubicaplus.payload.SoapRequest;
-import com.ubicaplus.payload.SoapResponse;
+import com.ubicaplus.payload.*;
 import com.ubicaplus.utility.Utility;
 import com.webservice.ubicaplus.dto.ParametrosUbicaPlusDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -14,13 +12,31 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.ws.BindingProvider;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Map;
 
 @Component
 public class SoapClient {
 
+	@Value("${userlist.file.location}")
+	String userListFileLocation;
+
 	public SoapResponse call(SoapRequest request) {
+
+		SoapResponse response = new SoapResponse();
+		boolean userIsValid = false;
+		try {
+			userIsValid = this.isValidUser(request.getReq_usuario(), request.getReq_password());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!userIsValid) {
+			response.setUnauthorized(true);
+			response.setErrorMessage("No Valid User");
+			return response;
+		}
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 
         com.webservice.ubicaplus.UbicaPlusWS ubicaws = (com.webservice.ubicaplus.UbicaPlusWS) context.getBean("ubicaClient");
@@ -34,7 +50,7 @@ public class SoapClient {
 		}
 
 		org.xmlsoap.schemas.soap.encoding.String soapResponse;
-        SoapResponse response = new SoapResponse();
+
 		try {
 			soapResponse = ubicaws.consultaUbicaPlus(this.prepareSoapRequest(request));
 
@@ -58,6 +74,23 @@ public class SoapClient {
 		}
 
 		return response;
+	}
+
+	private boolean isValidUser(String req_usuario, String req_password) throws IOException {
+		FileInputStream fis = new FileInputStream(userListFileLocation);
+		BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+		String line;
+		while ((line = in.readLine()) != null) {
+			String[] values = line.split(":");
+			if (req_usuario.equalsIgnoreCase(values[0])
+					&& req_password.equalsIgnoreCase(values[1])) {
+				in.close();
+				return true;
+			}
+		}
+		in.close();
+
+		return false;
 	}
 
 	private ParametrosUbicaPlusDTO prepareSoapRequest(SoapRequest request) {
