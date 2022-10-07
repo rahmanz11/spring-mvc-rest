@@ -9,9 +9,30 @@
                 <param name="sequence">UBICA_DETAIL_ID_SEQ</param>
             </generator>
         </id>
-        <property name="response" column="RESPONSE" />
-        <property name="status" column="STATUS" />
-        <property name="requestDateTime" column="REQUEST_DATE_TIME" />
-        <property name="responseDateTime" column="RESPONSE_DATE_TIME"/>
+        <property name="ReqUsuario" column="REQUSUARIO" />
+        <property name="ReqFechaconsulta" column="REQFECHACONSULTA" />
+        <property name="IdentificadorLinea" column="IDENTIFICADORLINEA" />
+        <property name="TipoIdentificacion" column="TIPOIDENTIFICACION" />
+        <property name="CodigoTipoIndentificacion" column="CODIGOTIPOINDENTIFICACION" />
+        <property name="NumeroIdentificacion" column="NUMEROIDENTIFICACION" />
+        <property name="Nombre1" column="NOMBRE1" />
+        <property name="Apellido1" column="APELLIDO1" />
+        <property name="Apellido2" column="APELLIDO2" />
+        <property name="NombreTitular" column="NOMBRETITULAR" />
+        <property name="NombreCiiu" column="NOMBRECIIU" />
+        <property name="LugarExpedicion" column="LUGAREXPEDICION" />
+        <property name="FechaExpedicion" column="FECHAEXPEDICION" />
+        <property name="Estado" column="ESTADO" />
+        <property name="NumeroInforme" column="NUMEROINFORME" />
+        <property name="EstadoTitular" column="ESTADOTITULAR" />
+        <property name="RangoEdad" column="RANGOEDAD" />
+        <property name="CodigoCiiu" column="CODIGOCIIU" />
+        <property name="CodigoDepartamento" column="CODIGODEPARTAMENTO" />
+        <property name="CodigoMunicipio" column="CODIGOMUNICIPIO" />
+        <property name="Fecha" column="FECHA" />
+        <property name="Hora" column="HORA" />
+        <property name="Entidad" column="ENTIDAD" />
+        <property name="RespuestaConsulta" column="RESPUESTACONSULTA" />
+        <property name="UbicaPlusCifin" column="UBICAPLUSCIFIN" />
     </class>
 </hibernate-mapping>

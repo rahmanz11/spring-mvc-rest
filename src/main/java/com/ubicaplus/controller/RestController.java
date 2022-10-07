@@ -18,9 +18,10 @@ public class RestController {
     public ResponseEntity<?> submit(@RequestBody SoapRequest request) {
         try {
             RestResponse response = restService.getData(request);
-            return new ResponseEntity<>(response.getCifin(), HttpStatus.OK);
+            return new ResponseEntity<CIFIN>(response.getCIFIN(), HttpStatus.OK);
         } catch (BadRequestException e) {
-            return new ResponseEntity<CifinError>(e.getError(), HttpStatus.BAD_REQUEST);
+            Message message = new Message(e.getError().getError().getMensajeError());
+            return new ResponseEntity<Message>(message, HttpStatus.BAD_REQUEST);
         } catch (InternalServerException e) {
             Message message = new Message(e.getMessage());
             return new ResponseEntity<Message>(message, HttpStatus.INTERNAL_SERVER_ERROR);

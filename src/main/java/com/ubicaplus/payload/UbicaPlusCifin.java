@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,16 @@ public class UbicaPlusCifin implements Serializable {
 
     @XmlElement(name = "GeneroTercero")
     private String GeneroTercero;
+
+    @XmlElement(name = "Direcciones")
+    private List<Direccion> Direcciones;
+
+    @XmlElement(name = "Telefonos")
+    private List<Telefono> Telefonos;
+
+    @XmlElement(name = "Celulares")
+    private List<Celular> Celulares;
+
+    @XmlElement(name = "Mails")
+    private List<Mail> Mails;
 }

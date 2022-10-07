@@ -14,7 +14,6 @@ import org.springframework.context.annotation.PropertySource;
 
 import javax.inject.Named;
 import java.io.*;
-import java.util.Date;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -49,33 +48,26 @@ public class RestServiceImpl implements RestService {
             throw new InvalidUserException("No Valid User");
         }
 
-        UbicaDetail detail = new UbicaDetail();
-        detail.setRequestDateTime(new Date());
-
         SoapResponse soapResponse = soapClient.call(request);
-        detail.setResponseDateTime(new Date());
-
-        try {
-            dao.save(detail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            String exception = Utility.getStringFromException(e);
-
-            throw new InternalServerException(exception);
-        }
-
-        RestResponse response = modelMapper.map(soapResponse, RestResponse.class);
 
         if (soapResponse.getErrorMessage() != null && soapResponse.getErrorMessage() != "") {
-            throw new InternalServerException(response.getErrorMessage());
-        }
-        if (soapResponse.isUnauthorized()) {
+            throw new InternalServerException(soapResponse.getErrorMessage());
+        } else if (soapResponse.isUnauthorized()) {
             throw new UnauthorizedServerException();
+        } else if (soapResponse.getCifinError() != null) {
+            throw new BadRequestException(soapResponse.getCifinError());
+        } else {
+            RestResponse response = modelMapper.map(soapResponse, RestResponse.class);
+            try {
+                UbicaDetail detail = modelMapper.map(response.getCIFIN().getTercero(), UbicaDetail.class);
+                dao.save(detail);
+            } catch (Exception e) {
+                e.printStackTrace();
+                String exception = Utility.getStringFromException(e);
+                throw new InternalServerException(exception);
+            }
+            return response;
         }
-        if (soapResponse.getCifinError() != null) {
-            throw new BadRequestException(response.getCifinError());
-        }
-        return response;
     }
 
     private boolean isValidUser(String req_usuario, String req_password) throws IOException {

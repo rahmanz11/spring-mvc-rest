@@ -10,7 +10,5 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class RestResponse implements Serializable {
-    private CIFIN cifin;
-    private CifinError cifinError;
-    private String errorMessage;
+    private CIFIN CIFIN;
 }
