@@ -24,18 +24,6 @@ public class SoapClient {
 	public SoapResponse call(SoapRequest request) {
 
 		SoapResponse response = new SoapResponse();
-		boolean userIsValid = false;
-		try {
-			userIsValid = this.isValidUser(request.getReq_usuario(), request.getReq_password());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (!userIsValid) {
-			response.setUnauthorized(true);
-			response.setErrorMessage("No Valid User");
-			return response;
-		}
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 
@@ -74,23 +62,6 @@ public class SoapClient {
 		}
 
 		return response;
-	}
-
-	private boolean isValidUser(String req_usuario, String req_password) throws IOException {
-		FileInputStream fis = new FileInputStream(userListFileLocation);
-		BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-		String line;
-		while ((line = in.readLine()) != null) {
-			String[] values = line.split(":");
-			if (req_usuario.equalsIgnoreCase(values[0])
-					&& req_password.equalsIgnoreCase(values[1])) {
-				in.close();
-				return true;
-			}
-		}
-		in.close();
-
-		return false;
 	}
 
 	private ParametrosUbicaPlusDTO prepareSoapRequest(SoapRequest request) {

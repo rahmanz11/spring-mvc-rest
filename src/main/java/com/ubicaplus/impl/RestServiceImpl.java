@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import javax.inject.Named;
 import java.io.*;
+import java.util.Date;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -38,6 +39,8 @@ public class RestServiceImpl implements RestService {
     public RestResponse getData(SoapRequest request) throws InternalServerException, UnauthorizedServerException,
             BadRequestException, InvalidUserException {
 
+        Date requestDateTime = new Date();
+
         boolean userIsValid = false;
         try {
             userIsValid = this.isValidUser(request.getReq_usuario(), request.getReq_password());
@@ -57,9 +60,13 @@ public class RestServiceImpl implements RestService {
         } else if (soapResponse.getCifinError() != null) {
             throw new BadRequestException(soapResponse.getCifinError());
         } else {
-            RestResponse response = modelMapper.map(soapResponse, RestResponse.class);
+            RestResponse response = new RestResponse();
+            response.setCIFIN(new CIFIN());
+            response.getCIFIN().setTercero(modelMapper.map(soapResponse.getCIFIN().getTercero(), Tercero.class));
             try {
                 UbicaDetail detail = modelMapper.map(response.getCIFIN().getTercero(), UbicaDetail.class);
+                detail.setReqUsuario(request.getReq_usuario());
+                detail.setReqFechaconsulta(requestDateTime);
                 dao.save(detail);
             } catch (Exception e) {
                 e.printStackTrace();
