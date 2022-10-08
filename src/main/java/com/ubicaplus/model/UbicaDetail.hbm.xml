@@ -33,6 +33,35 @@
         <property name="Hora" column="HORA" />
         <property name="Entidad" column="ENTIDAD" />
         <property name="RespuestaConsulta" column="RESPUESTACONSULTA" />
-        <property name="UbicaPlusCifin" column="UBICAPLUSCIFIN" />
+        <property name="DireccionDirPos" column="DIRECCION_DIRPOS" />
+        <property name="DireccionNoReportes" column="DIRECCION_NOREPORTES" />
+        <property name="DireccionProductoActivo" column="DIRECCION_PRODUCTOACTIVO" />
+        <property name="DireccionTipoUbicacion" column="DIRECCION_TIPOUBICACION" />
+        <property name="DireccionSectorEconomico" column="DIRECCION_SECTORECONOMICO" />
+        <property name="DireccionPrimerReporte" column="DIRECCION_PRIMERREPORTE" />
+        <property name="DireccionUltimoReporte" column="DIRECCION_ULTIMOREPORTE" />
+        <property name="DireccionDireccion" column="DIRECCION_DIRECCION" />
+        <property name="DireccionCiudad" column="DIRECCION_CIUDAD" />
+        <property name="TelefonoTelPos" column="TELEFONO_TELPOS" />
+        <property name="TelefonoNoReportes" column="TELEFONO_NOREPORTES" />
+        <property name="TelefonoProductoActivo" column="TELEFONO_PRODUCTOACTIVO" />
+        <property name="TelefonoTipoUbicacion" column="TELEFONO_TIPOUBICACION" />
+        <property name="TelefonoSectorEconomico" column="TELEFONO_SECTORECONOMICO" />
+        <property name="TelefonoPrimerReporte" column="TELEFONO_PRIMERREPORTE" />
+        <property name="TelefonoUltimoReporte" column="TELEFONO_ULTIMOREPORTE" />
+        <property name="TelefonoPrefijo" column="TELEFONO_PREFIJO" />
+        <property name="TelefonoTelefono" column="TELEFONO_TELEFONO" />
+        <property name="TelefonoCiudad" column="TELEFONO_CIUDAD" />
+        <property name="CelularCelPos" column="CELULAR_CELPOS" />
+        <property name="CelularNoReportes" column="CELULAR_NOREPORTES" />
+        <property name="CelularProductoActivo" column="CELULAR_PRODUCTOACTIVO" />
+        <property name="CelularSectorEconomico" column="CELULAR_SECTORECONOMICO" />
+        <property name="CelularPrimerReporte" column="CELULAR_PRIMERREPORTE" />
+        <property name="CelularUltimoReporte" column="CELULAR_ULTIMOREPORTE" />
+        <property name="CelularCelular" column="CELULAR_CELULAR" />
+        <property name="MailNoReportes" column="MAIL_NOREPORTES" />
+        <property name="MailPrimerReporte" column="MAIL_PRIMERREPORTE" />
+        <property name="MailUltimoReporte" column="MAIL_ULTIMOREPORTE" />
+        <property name="MailCorreo" column="MAIL_CORREO" />
     </class>
 </hibernate-mapping>

@@ -19,7 +19,7 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Direccion implements Serializable {
 
-    @XmlElement(name = "NoReportes")
+    @XmlElement(name = "DirPos")
     private String DirPos;
 
     @XmlElement(name = "NoReportes")
