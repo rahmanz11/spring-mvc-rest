@@ -33,6 +33,7 @@
         <property name="Hora" column="HORA" />
         <property name="Entidad" column="ENTIDAD" />
         <property name="RespuestaConsulta" column="RESPUESTACONSULTA" />
+        <property name="GeneroTercero" column="GENEROTERCERO" />
         <property name="DireccionDirPos" column="DIRECCION_DIRPOS" />
         <property name="DireccionNoReportes" column="DIRECCION_NOREPORTES" />
         <property name="DireccionProductoActivo" column="DIRECCION_PRODUCTOACTIVO" />

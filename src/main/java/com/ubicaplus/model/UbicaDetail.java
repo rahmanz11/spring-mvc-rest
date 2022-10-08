@@ -14,79 +14,82 @@ import java.util.Date;
 public class UbicaDetail implements Serializable {
 
     @Column(name = "ID")
-    Long id;
+    private Long id;
 
     @Column(name = "REQUSUARIO")
-    String ReqUsuario;
+    private String ReqUsuario;
 
     @Column(name = "REQFECHACONSULTA")
-    Date ReqFechaconsulta;
+    private Date ReqFechaconsulta;
 
     @Column(name = "IDENTIFICADORLINEA")
-    String IdentificadorLinea;
+    private String IdentificadorLinea;
 
     @Column(name = "TIPOIDENTIFICACION")
-    String TipoIdentificacion;
+    private String TipoIdentificacion;
 
     @Column(name = "CODIGOTIPOINDENTIFICACION")
-    String CodigoTipoIndentificacion;
+    private String CodigoTipoIndentificacion;
 
     @Column(name = "NUMEROIDENTIFICACION")
-    String NumeroIdentificacion;
+    private String NumeroIdentificacion;
 
     @Column(name = "NOMBRE1")
-    String Nombre1;
+    private String Nombre1;
 
     @Column(name = "APELLIDO1")
-    String Apellido1;
+    private String Apellido1;
 
     @Column(name = "APELLIDO2")
-    String Apellido2;
+    private String Apellido2;
 
     @Column(name = "NOMBRETITULAR")
-    String NombreTitular;
+    private String NombreTitular;
 
     @Column(name = "NOMBRECIIU")
-    String NombreCiiu;
+    private String NombreCiiu;
 
     @Column(name = "LUGAREXPEDICION")
-    String LugarExpedicion;
+    private String LugarExpedicion;
 
     @Column(name = "FECHAEXPEDICION")
-    String FechaExpedicion;
+    private String FechaExpedicion;
 
     @Column(name = "ESTADO")
-    String Estado;
+    private String Estado;
 
     @Column(name = "NUMEROINFORME")
-    String NumeroInforme;
+    private String NumeroInforme;
 
     @Column(name = "ESTADOTITULAR")
-    String EstadoTitular;
+    private String EstadoTitular;
 
     @Column(name = "RANGOEDAD")
-    String RangoEdad;
+    private String RangoEdad;
 
     @Column(name = "CODIGOCIIU")
-    String CodigoCiiu;
+    private String CodigoCiiu;
 
     @Column(name = "CODIGODEPARTAMENTO")
-    String CodigoDepartamento;
+    private String CodigoDepartamento;
 
     @Column(name = "CODIGOMUNICIPIO")
-    String CodigoMunicipio;
+    private String CodigoMunicipio;
 
     @Column(name = "FECHA")
-    String Fecha;
+    private String Fecha;
 
     @Column(name = "HORA")
-    String Hora;
+    private String Hora;
 
     @Column(name = "ENTIDAD")
-    String Entidad;
+    private String Entidad;
 
     @Column(name = "RESPUESTACONSULTA")
-    String RespuestaConsulta;
+    private String RespuestaConsulta;
+
+    @Column(name = "GENEROTERCERO")
+    private String GeneroTercero;
 
     @Column(name = "DIRECCION_DIRPOS")
     private String DireccionDirPos;
