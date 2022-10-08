@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * Class to construct the error message
+ */
 @Getter
 @Setter
 @NoArgsConstructor

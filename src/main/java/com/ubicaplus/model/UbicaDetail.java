@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Data model class
+ */
 @Getter
 @Setter
 @NoArgsConstructor

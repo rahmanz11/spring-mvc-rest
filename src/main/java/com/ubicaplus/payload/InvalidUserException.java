@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Exception class
+ */
 @Getter
 @Setter
 @NoArgsConstructor

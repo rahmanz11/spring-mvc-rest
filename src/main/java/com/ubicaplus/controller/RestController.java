@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Bridge API REST Controller
+ */
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
 public class RestController {
@@ -14,13 +17,19 @@ public class RestController {
     @Autowired
     private RestService restService;
 
+    /**
+     * published and exposed API endpoint (call-provider-service) to receive the users request and response accordingly
+     * @param request SoapRequest class included all the parameter coming through the Bridge API Request
+     * @return CIFIN - will contain the Provider Service response data
+     *         Message - will contain the ErrorText
+     */
     @RequestMapping(value = "call-provider-service", method = RequestMethod.POST)
     public ResponseEntity<?> submit(@RequestBody SoapRequest request) {
         try {
-            RestResponse response = restService.getData(request);
-            return new ResponseEntity<CIFIN>(response.getCIFIN(), HttpStatus.OK);
+            CIFIN response = restService.getData(request);
+            return new ResponseEntity<CIFIN>(response, HttpStatus.OK);
         } catch (BadRequestException e) {
-            Message message = new Message(e.getError().getError().getMensajeError());
+            Message message = new Message(e.getMessage());
             return new ResponseEntity<Message>(message, HttpStatus.BAD_REQUEST);
         } catch (InternalServerException e) {
             Message message = new Message(e.getMessage());

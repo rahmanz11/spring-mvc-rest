@@ -2,7 +2,10 @@ package com.ubicaplus.service;
 
 import com.ubicaplus.payload.*;
 
+/**
+ * REST API Middleware Service Interface
+ */
 public interface RestService {
-    RestResponse getData(SoapRequest request) throws InternalServerException, UnauthorizedServerException,
+    CIFIN getData(SoapRequest request) throws InternalServerException, UnauthorizedServerException,
             BadRequestException, InvalidUserException;
 }

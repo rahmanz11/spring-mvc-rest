@@ -5,6 +5,9 @@ import com.ubicaplus.utility.Utility;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Data Access Object
+ */
 @Repository("ubicaDao")
 public class UbicaDao {
 

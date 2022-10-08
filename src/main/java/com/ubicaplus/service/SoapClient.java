@@ -15,6 +15,9 @@ import javax.xml.ws.BindingProvider;
 import java.io.*;
 import java.util.Map;
 
+/**
+ * Class to communicate with the Provider Service
+ */
 @Component
 public class SoapClient {
 

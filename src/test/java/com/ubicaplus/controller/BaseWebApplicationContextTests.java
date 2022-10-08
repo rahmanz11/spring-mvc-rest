@@ -18,6 +18,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.annotation.Resource;
 
+/**
+ * Base TEST Class to initiate spring application context
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/applicationContext.xml"})
 public abstract class BaseWebApplicationContextTests {

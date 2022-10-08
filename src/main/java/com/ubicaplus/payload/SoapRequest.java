@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ *  API Request object
+ */
 @Getter
 @Setter
 @NoArgsConstructor

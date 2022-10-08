@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Parent class for Mail data object
+ */
 @Getter
 @Setter
 @NoArgsConstructor

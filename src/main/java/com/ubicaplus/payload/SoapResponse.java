@@ -7,6 +7,9 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ *  Response class to receive the Provider Service response
+ */
 @Getter
 @Setter
 @NoArgsConstructor

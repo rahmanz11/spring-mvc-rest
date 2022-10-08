@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+/**
+ * Class to map the CifinError sent by the Provider Service
+ */
 @Getter
 @Setter
 @NoArgsConstructor

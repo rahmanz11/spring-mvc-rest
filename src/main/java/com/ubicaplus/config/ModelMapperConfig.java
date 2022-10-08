@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
+    /**
+     * ModelMapper is to make object mapping easy
+     * @return ModelMapper
+     */
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

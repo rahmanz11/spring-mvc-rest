@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * XML Tree parent class of the Direccion
+ */
 @Getter
 @Setter
 @NoArgsConstructor
