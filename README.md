@@ -36,6 +36,27 @@ Files
 
 Building the Bridge REST API Project
 -
+    Before build, confirm the following things:
+    ___
+
+    1. You have Java installed in your environment
+    2. You have maven installed in your environment
+    3. You have database connection available in your environment
+    4. You have set the path of the users.txt properly in the src/main/resources/application.properties as a value of 
+        ```userlist.file.location```
+        Your file must be accessible
+    5. You have put the database username, password and url properly that matches to your environment in: 
+        ```src/main/webapp/WEB-INF/applicationContext.xml```
+
+    ```
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@YOURDBHOST:YOURDBPORT:YOURDBSID_OR_SERVICENAME"/>
+        <property name="username" value="YOURDBUSERNAME"/>
+        <property name="password" value="YOURDBPASSWORD"/>
+    </bean>
+    ```
+
     From the root directory run: mvn clean install
     This will build the project war file
     After the successful build, the ubicaplus.war file will be available in the target/ folder
@@ -43,11 +64,40 @@ Building the Bridge REST API Project
 Deploy the Bridge REST API Project
 -
     Copy the ubicaplus.war file from the target/ folder, paste it inside the webapps directory of a running apache tomcat
-    In default case, apache tomcat runs in the localhost at port 8080
+    Wait till your_tomcat_installation_directory/logs/catalina.out says something like this at the end, ```org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [...\apache-tomcat-...\webapps\ubicaplus.war] has finished in [....] ms```
+
+    In default case, apache tomcat runs in: localhost at port: 8080
 
 Consuming the Bridge REST API
 -
-    Consume the REST API from any REST client. A sample Request Body is given below:
+    Consume the REST API from any REST client. Send a POST request to the Bridge API and get the response
+
+
+Following is the URL to consume the bridge API:
+___
+    http://localhost:8080/ubicaplus/rest/call-provider-service
+    ____
+    
+    Here:
+
+    1. Your hostname. For example: http://localhost
+    2. Your port number where tomcat is running. For example: 8080
+    3. Bridge API Service Name: ubicaplus
+    4. Context Path: rest
+    5. Bridge API Endpoint: call-provider-service
+
+
+Check the log
+-
+    The log file exists in your tomcat installation directory/log folder. You will see a file named: catalina.out
+
+    To disable log, go to: tomcat installation directory/conf/logging.properties
+
+    and comment the following line
+
+    handlers = 1catalina.org.apache.juli.FileHandler, .....
+
+    A sample Request Body is given below:
 ```
 {
     "req_usuario": "307883",
