@@ -40,9 +40,9 @@
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:FTRACKDHK"/>
-        <property name="username" value="FTRACK"/>
-        <property name="password" value="ft3333"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:dbservicename"/>
+        <property name="username" value="dbuser"/>
+        <property name="password" value="dbpass"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
