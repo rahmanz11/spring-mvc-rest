@@ -28,8 +28,8 @@ public class SoapClientTest extends BaseWebApplicationContextTests {
         request.setNumeroIdentificacion("262744");
         request.setPrimerApellido("SEPULVEDA");
         request.setTipoIdentificacion("1");
-        request.setReq_usuario("307883");
-        request.setReq_password("Equidad2208*");
+        request.setReq_usuario("user");
+        request.setReq_password("pass");
     }
 
     /**
